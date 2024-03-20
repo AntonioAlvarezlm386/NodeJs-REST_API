@@ -18,6 +18,7 @@ router.post('/employees', createEmployees)
 
 router.delete('/employees/:id', deleteEmployees)
 
-router.put('/employees', updateEmployees)
+/**Si usamos PUT es para actualizar todo, PATCH para actualizar parcialmente este dato */
+router.patch('/employees/:id', updateEmployees)
 
 export default router;
