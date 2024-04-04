@@ -1,8 +1,22 @@
-import app from './app.js';
-import { PORT } from './config.js'
+import app from "./app.js";
+import { PORT } from "./config.js";
+import { sequelize } from "./db/db.js";
 
-/**Movemos todo el codigo a un archivo app,js, para que el index solo quede como elarchivo que arranca el servidor */
+import { Product } from "./models/Product.js";
 
-app.listen(PORT);
-console.log(`server running on port ${PORT}`)
 
+
+/**index file is just to start the server */
+async function main() {
+  try {
+    await sequelize.sync();
+    app.listen(PORT)
+    console.log("> DB connection has been established successfully.");
+    console.log('> app listen on port ', PORT)
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+}
+
+/**Main function start */
+main()
