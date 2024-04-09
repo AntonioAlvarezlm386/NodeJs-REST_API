@@ -7,7 +7,7 @@ import { Role } from "./Role.js";
 export const UserRole = sequelize.define(
     'userRole',
     {
-        userId : {
+        username : {
             type: DataTypes.STRING
         },
         roleId: {
@@ -24,11 +24,11 @@ export const UserRole = sequelize.define(
 User.belongsToMany(Role, {
     through: UserRole,
     foreignKey: 'username',
-    otherKey: 'name'
+    otherKey: 'roleId'
 })
 
 Role.belongsToMany(User, {
     through: UserRole,
-    foreignKey: 'name',
+    foreignKey: 'roleId',
     otherKey: 'username'
 })
