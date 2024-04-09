@@ -1,36 +1,29 @@
 /**
- * Aca configuramos la aplicación
+ * ACÁ CONFIGURAMOS LA APLICACIÓN
  */
 
-/* Para requerir express en nuestro proyecto podemos usar los commonJs de NodeJS */
-//const express = require ('express')
+/* Para requerir express en nuestro proyecto podemos usar los commonJs de NodeJS 
+const express = require ('express')
 
-/**Pero para usar código moderno mejor se ES Modulos (si tenemos instalado una versión de node superior a la 16)
- * -> Ademas hay que agregar "type": "module", en el archivo package.json
+Pero para usar código moderno mejor usar ESMódulos (si tenemos instalado una versión de node superior a la 16)
 */
 
 import productsRoutes from './routes/products.routes.js'
+import authRoutes from './routes/auth.routes.js'
 import express  from "express"
 import morgan from 'morgan'
+import { endpointNotFound } from './middlewares/middlewares.js';
 
 const app = express();
 
-/** to save values on express variabless */
-//app.set('pkg', pkg)
 
 //middlewares
-
-/** To use json format */
-app.use(express.json())
-app.use(morgan('dev'))
-
+app.use(express.json())         // json format
+app.use(morgan('dev'))          //reports
 
 app.use('/api/products', productsRoutes)
+app.use('/api/auth', authRoutes)
 
-app.use((req, res, next) => {
-    res.status(404).json({
-        message: 'endpoint Not Found'
-    })
-})
+app.use(endpointNotFound)
 
-export default app;
+export default app; 

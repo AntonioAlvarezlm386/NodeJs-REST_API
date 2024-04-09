@@ -21,6 +21,8 @@ export const Product = sequelize.define(
         imgURL: {
             type: DataTypes.STRING
         }
+    }, {
+        timestamps: true
     }
 )
 
