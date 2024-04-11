@@ -9,7 +9,7 @@ import { UserRole } from './models/UserRole.js'
 /**index file is just to start the server */
 async function main() {
   try {
-    await sequelize.sync({alter:true});
+    await sequelize.sync();
     app.listen(PORT)
     console.log("> DB connection has been established successfully.");
     console.log('> app listen on port', PORT)

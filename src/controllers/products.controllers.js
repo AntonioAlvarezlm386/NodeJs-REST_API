@@ -22,6 +22,7 @@ export const getProductById = async(req, res) => {
         id
       }
   })
+  
   res.json(product)
   } catch (error) {
     return res.status(500).json({message: error.message})
@@ -32,7 +33,6 @@ export const getProductById = async(req, res) => {
 /** Creates a product */
 export const createProduct = async (req, res) => {
   const { name, category, price, imgURL } = req.body
-  console.log(req.body)
   try {
     const newProduct = await Product.create({
       name,
