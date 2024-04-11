@@ -39,30 +39,15 @@ export const signUp = async (req, res) => {
       email,
       password,
     });
+    
 
-    if (roles.length != 0) {
-      //get the req roles id from the db
-      const dbRoles = await Promise.all(
-        roles.map(async (role) => {
-          return await Role.findOne({
-            where: {
-              name: role,
-            },
-          });
-        })
-      );
-
-      dbRoles.forEach((role) => {
-        newUser.addRole(role);
-      });
-    } else {
-      const defaultRole = await Role.findOne({
-        where: {
-          name: "user",
-        },
-      });
-      newUser.addRole(defaultRole);
-    }
+    /** default user role assignation */
+    const defaultRole = await Role.findOne({
+      where: {
+        name: "user",
+      },
+    });
+    newUser.addRole(defaultRole);
 
     const token = jwt.sign({ id: newUser.username }, SECRET, {
       expiresIn: 86400, //24 hrs

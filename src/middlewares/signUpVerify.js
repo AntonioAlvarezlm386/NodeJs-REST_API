@@ -1,4 +1,32 @@
 import { Role } from "../models/Role.js"
+import { User } from "../models/User.js"
+
+export const dbDuplicate = async (req, res, next) => {
+    const dbUser = await User.findOne({
+        where: {
+            username: req.body.username
+        }
+    })
+    if(dbUser) {
+        return res.status(400).json({message: 'user already exists'})
+    }
+
+
+    const dbEmail = await User.findOne({
+        where: {
+            email: req.body.email
+        }
+    })
+
+    if(dbEmail){
+        return res.status(400).json({
+            message: 'email already exists'
+        })
+    }
+
+    next()
+} 
+
 
 export const rolesChecker = async (req, res, next) => {
 
